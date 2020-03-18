@@ -32,29 +32,27 @@ include_directories(include ${catkin_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS})
 
 add_executable(gfs-carmen
   src/gfs-carmen.cpp
-  include/utils/commandline.h
-  include/gridfastslam/gridslamprocessor.h
-  include/gridfastslam/gridslamprocessor.cpp
-  include/particlefilter/particlefilter.h
-  include/particlefilter/particlefilter.cpp
-  include/log/sensorlog.h
-  include/log/sensorlog.cpp
-  include/sensor/sensor_base/sensorreading.h
-  include/sensor/sensor_base/sensorreading.cpp
-  include/scanmatcher/scanmatcher.h
-  include/scanmatcher/scanmatcher.cpp
-  include/grid/map.h
+  ## include/utils/commandline.h
+  ## include/gridfastslam/gridslamprocessor.h
+  ## include/gridfastslam/gridslamprocessor.cpp
+  ## include/particlefilter/particlefilter.h
+  ## include/particlefilter/particlefilter.cpp
+  ## include/log/sensorlog.h
+  ## include/log/sensorlog.cpp
+  ## include/sensor/sensor_base/sensorreading.h
+  ## include/sensor/sensor_base/sensorreading.cpp
+  include/scanmatcher/FrontierIndexer.h
+  include/scanmatcher/FrontierIndexer.cpp
+  ## include/grid/map.h
   include/scanmatcher/FrontierManager.h
   include/scanmatcher/FrontierManager.cpp
-  include/configfile/configfile.h
-  include/configfile/configfile.cpp
-  include/sensor/sensor_odometry/odometrysensor.h
-  include/sensor/sensor_odometry/odometrysensor.cpp
-  include/sensor/sensor_range/rangesensor.h
-  include/sensor/sensor_range/rangesensor.cpp
+  ## include/configfile/configfile.h
+  ## include/configfile/configfile.cpp
+  ## include/sensor/sensor_odometry/odometrysensor.h
+  ## include/sensor/sensor_odometry/odometrysensor.cpp
+  ## include/sensor/sensor_range/rangesensor.h
+  ## include/sensor/sensor_range/rangesensor.cpp
 )
-
-
 
 
 ## Add cmake target dependencies of the executable
