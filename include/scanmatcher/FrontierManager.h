@@ -121,13 +121,13 @@ public:
 
 	vector<IntLine> getFrontiers() {
 
-		vector<IntLine> retFrontiers;
+		// vector<IntLine> retFrontiers;
 
-		for (map<int, IntLine >::iterator itr = _frontiersDB.begin(); itr != _frontiersDB.end(); ++itr) {
-			retFrontiers.push_back(itr->second);
-		}
-		return retFrontiers;
-//		return _frontiers;
+		// for (map<int, IntLine >::iterator itr = _frontiersDB.begin(); itr != _frontiersDB.end(); ++itr) {
+		// 	retFrontiers.push_back(itr->second);
+		// }
+		// return retFrontiers;
+		return _frontiers;
 	}
 
 	FrontierExecution getLastExecution() {

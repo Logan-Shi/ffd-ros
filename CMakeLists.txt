@@ -2,14 +2,30 @@ cmake_minimum_required(VERSION 2.8.3)
 project(fast_frontier_detector)
 
 find_package(catkin REQUIRED COMPONENTS
-	roscpp
-	std_msgs
-	message_generation
+  geometry_msgs
+  nav_msgs
+  roscpp
+  rospy
+  std_msgs
+  tf
+  visualization_msgs
+  message_generation
 )
 
+add_message_files(
+  FILES
+  PointArray.msg
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  geometry_msgs
+)
 
 catkin_package(
   INCLUDE_DIRS include
+   CATKIN_DEPENDS geometry_msgs roscpp std_msgs message_runtime
 #  LIBRARIES g2o2occupancy_ros
 #  CATKIN_DEPENDS message_runtime
 #  DEPENDS system_lib
@@ -46,6 +62,7 @@ add_executable(gfs-carmen
   ## include/grid/map.h
   include/scanmatcher/FrontierManager.h
   include/scanmatcher/FrontierManager.cpp
+  include/scanmatcher/gridlinetraversal.h
   ## include/configfile/configfile.h
   ## include/configfile/configfile.cpp
   ## include/sensor/sensor_odometry/odometrysensor.h

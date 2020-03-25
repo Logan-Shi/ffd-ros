@@ -141,16 +141,6 @@ void FrontierManager::calcFrontiers(ScanMatcherMap& map, const IntPoint& pose) {
 //	rafael.calcNext(pose, map);
 
 
-	struct timeval startTime;
-	struct timeval endTime;
-	struct rusage ru;
-
-
-	getrusage(RUSAGE_SELF, &ru);
-	startTime = ru.ru_utime;
-
-	incCounter();
-
 	Line contour;
 	vector<IntLine* > frontiers;
 
@@ -169,66 +159,28 @@ void FrontierManager::calcFrontiers(ScanMatcherMap& map, const IntPoint& pose) {
 		_frontiers = getFrontiersFromContour(contour, map);
 	}
 
-	getrusage(RUSAGE_SELF, &ru);
-	endTime = ru.ru_utime;
-	double tS = startTime.tv_sec*1000000.0 + (startTime.tv_usec);
-	double tE = endTime.tv_sec*1000000.0  + (endTime.tv_usec);
-	double runtime = (tE - tS) / (double)(DEBUG_RUNS);
-
-	ofstream fout;
-	fout.open("ffd_executions.txt", ios::app);
-	fout << runtime << endl;
-	fout.close();
 //	cerr << "DEBUG calcFrontiers size = " << _frontiers.size() << endl;
 
 
 	// DEBUG: write frontiers to file
 
-	static int counter = -1;
-	counter++;
+// 	static int counter = -1;
+// 	counter++;
 
-#ifdef WRITE_TO_FILES
-	char buffer[50];
-	ofstream f_contour, f_frontier;
+// #ifdef WRITE_TO_FILES
+// 	char buffer[50];
+// 	ofstream f_contour, f_frontier;
 
-	// write contour file
-	sprintf(buffer, "contour_%d.txt",counter);
-	f_contour.open(buffer);
+// 	// write contour file
+// 	sprintf(buffer, "contour_%d.txt",counter);
+// 	f_contour.open(buffer);
 
-	for (Line::iterator i = contour.begin(); i != contour.end(); ++i) {
-		f_contour << (i->first.x) << "," << (i->first.y) << endl;
-	}
-	f_contour.close();
-#endif
+// 	for (Line::iterator i = contour.begin(); i != contour.end(); ++i) {
+// 		f_contour << (i->first.x) << "," << (i->first.y) << endl;
+// 	}
+// 	f_contour.close();
+// #endif
 
-	for (unsigned int i = 0; i < _frontiers.size(); ++i) {
-
-#ifdef WRITE_TO_FILES
-
-		// write frontiers files
-		sprintf(buffer, "frontier_%d_%d.txt", counter, i);
-		cout << "DEBUG: calcFrontiers " << buffer << endl;
-		f_frontier.open(buffer);
-
-		for (IntLine::iterator lItr = _frontiers[i].begin(); lItr != _frontiers[i].end(); ++lItr) {
-			f_frontier << lItr->x << "," << lItr->y << endl;
-		}
-
-		f_frontier.close();
-#endif
-
-		//delete frontiers[i];
-
-	}
-
-	pthread_mutex_lock(&_mutexExecution);
-
-	_lastExecution.addRun(runtime, counter, contour.size());
-//	_lastExecution.counter = counter;
-//	_lastExecution.runtime = runtime;
-//	_lastExecution.total += runtime;
-
-	pthread_mutex_unlock(&_mutexExecution);
 
 	// manage new detected frontiers
 	maintainNewFrontiers(_frontiers, map);
